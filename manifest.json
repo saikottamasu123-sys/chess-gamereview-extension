@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Chess.com Game Reviewer",
+  "version": "0.1.0",
+  "description": "Phase 1: Detects completed chess.com games and extracts PGN for local analysis.",
+
+  "permissions": [
+    "scripting",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "https://www.chess.com/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+  {
+    "matches": [
+      "https://www.chess.com/game/live/*",
+      "https://www.chess.com/game/*"
+    ],
+    "js": ["content.js"],
+    "run_at": "document_idle"
+  }
+],
+
+  "action": {
+    "default_title": "Chess Reviewer"
+  }
+}
