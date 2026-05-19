@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Chess.com Game Reviewer",
-  "version": "0.1.0",
-  "description": "Phase 1: Detects completed chess.com games and extracts PGN for local analysis.",
+  "version": "0.2.0",
+  "description": "Phase 2: Local Stockfish engine analysis via WebAssembly Web Worker.",
 
   "permissions": [
     "scripting",
@@ -18,15 +18,31 @@
   },
 
   "content_scripts": [
-  {
-    "matches": [
-      "https://www.chess.com/game/live/*",
-      "https://www.chess.com/game/*"
-    ],
-    "js": ["content.js"],
-    "run_at": "document_idle"
-  }
-],
+    {
+      "matches": [
+        "https://www.chess.com/game/live/*",
+        "https://www.chess.com/game/*"
+      ],
+      "js": [
+        "lib/chess.min.js",
+        "engine.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "stockfish-worker.js",
+        "lib/stockfish.js"
+      ],
+      "matches": [
+        "https://www.chess.com/*"
+      ]
+    }
+  ],
 
   "action": {
     "default_title": "Chess Reviewer"
